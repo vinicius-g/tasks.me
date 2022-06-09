@@ -1,7 +1,7 @@
-# Task Manager
+# Gerenciador de tarefas
 
-This is a **simple** task manager, the main functionalities are:
-- Create tasks, clicking on the **plus** icon, or **CTRL + A**. This will show a box where you can enter your task, and click the **green** button or press **enter** to add, or the **red** button to cancel and hide the box.
-- Edit created tasks by clicking the **pen** icon, this will show the task and the input to change the task, clicking the **green** button or pressing "**enter** the task will be changed, and clicking the **red** button the task remains the same.
-- Delete create tasks by clicking the **trash** icon.
-- Complete tasks by clicking them, this **will not delete** the task, but will draw a line through the dask. This can be done to keep in mind what you have finished.
+Este é um **simples** gerenciador de tarefas, e as principais funcionalidades são:
+- Criar tarefas, clicando no ícone **mais**, or usando **CTRL + A**. Isso irá mostrar uma caixa onde você pode digitar sua tarefa, e clicando no botão **verde** ou pressionando **enter** para adicionar a tarefa, ou clique no botão **vermelho** para cancelar e esconder a caixa.
+- Editar tarefas criadas, clicando no ícone **caneta**, isso irá mostrar a tarefa selecionada e permitir a alteração, clicando no botaõ **verde** ou apertando **enter** a tarefa será alterada, clicando o botão **vermelho** a tarefa continuará igual.
+- Deletar tarefas criadas clicando no ícone **lixeira**.
+- Completar as tarefas clicando nelas, isso **não vai** deletar a tarefa, será traçada uma linha sobre ela. Isso pode ser feito para ter em mente o que já foi realizado.
