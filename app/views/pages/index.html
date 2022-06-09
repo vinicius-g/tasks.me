@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <link rel="stylesheet" href="../../public/css/style.css">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <script src="../../public/js/script.js" defer></script>
+    <title>ListarTarefas.me</title>
+</head>
+
+<body>
+    <div>
+        <span>
+            <h1>LISTA DE TAREFAS</h1>
+            <button class="adicionar" data-add>
+                <i class='bx bx-plus'></i>
+            </button>
+        </span>
+        <div id="tarefas" data-tasks>
+        </div>
+    </div>
+    <div id="container-texto" data-textContainer>
+    </div>
+    <div id="texto" data-modal>
+        <h2 data-title></h2>
+        <input type="text" data-newTask>
+        <div>
+            <button class="confirmar" data-confirm>Adicionar</button>
+            <button class="confirmar" id="change" data-confirmChange>Adicionar</button>
+            <button class="cancelar" data-cancel>Cancelar</button>
+        </div>
+    </div>
+    <template data-task>
+        <p data-remainingTask></p>
+        <button class="editar" data-edit>
+            <i class='bx bxs-pencil'></i>
+        </button>
+        <button class="apagar" data-delete>
+            <i class='bx bxs-trash'></i>
+        </button>
+    </template>
+</body>
+
+</html>
