@@ -49,8 +49,7 @@ function addTask() {
 
   let clones = []
   clones.push(clone)
-  let idSpanNum = 1
-  let idSpanNam = "span"
+  
   let listaClone = clones.map(clone => {
     let spanEle = document.createElement('span')
     spanEle.setAttribute("data-span", "")
@@ -58,20 +57,26 @@ function addTask() {
       spanEle.classList.toggle("completed")
       e.stopImmediatePropagation()
     })
-    let spans = document.querySelectorAll('[data-span]')
-    spans.forEach((span) => {
-      idSpanNum = idSpanNum + 1
-      let idSpan = idSpanNam + idSpanNum
-      span.id = idSpan
-    })
     spanEle.appendChild(clone)
     return spanEle
   })
   taskList.prepend(...listaClone)
   
+  giveIdSpan()
   giveIdEdit()
   giveIdDelete()
   giveIdP()
+}
+
+function giveIdSpan() {
+  let idSpanNum = 1
+  let idSpanNam = "span"
+  let spans = document.querySelectorAll('[data-span]')
+    spans.forEach((span) => {
+      let idSpan = idSpanNam + idSpanNum
+      span.id = idSpan
+      idSpanNum++
+    })
 }
 
 function giveIdEdit() {
@@ -118,13 +123,12 @@ function verifyTaskValue() {
 }
 
 var idP
-var idEN
 
 function getIndexEdit(edit, id) {
   edit.id = id
   edit.addEventListener('click', (e) => {
     let idE = e.target.id
-    idEN = idE.slice(-1)
+    let idEN = idE.slice(-1)
     idP = document.getElementById("p" + idEN)
     let previousTask = idP.textContent
     document.querySelector('[data-newTask]').value = previousTask
@@ -140,26 +144,14 @@ function getIndexDelete(deleted, id) {
     let idD = e.target.id
     let idDN = idD.slice(-1)
     let idCN = idDN
-    if (idDN == 1) {
-      idDN = 2
-    }
     let idC = document.getElementById("span" + idCN)
-    if (idCN !== idDN) {
-      taskList.firstChild.remove()
-    } else if (idCN == idDN) {
-      idC.remove()
-    }
+    idC.remove()
     e.stopImmediatePropagation()
   })
 }
 
 function getIndexP(p, id) {
   p.id = id
-  p.addEventListener('click', (e) => {
-    let idP = e.target.id
-    let pEle = document.getElementById(idP)
-    e.stopImmediatePropagation()
-  })
 }
 
 function changeTask(id) {
