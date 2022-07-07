@@ -128,7 +128,7 @@ function getIndexEdit(edit, id) {
   edit.id = id
   edit.addEventListener('click', (e) => {
     let idE = e.target.id
-    let idEN = idE.slice(-1)
+    let idEN = idE.replace(/\D/g, "")
     idP = document.getElementById("p" + idEN)
     let previousTask = idP.textContent
     document.querySelector('[data-newTask]').value = previousTask
@@ -142,7 +142,7 @@ function getIndexDelete(deleted, id) {
   deleted.id = id
   deleted.addEventListener('click', (e) => {
     let idD = e.target.id
-    let idDN = idD.slice(-1)
+    let idDN = idD.replace(/\D/g, "")
     let idCN = idDN
     let idC = document.getElementById("span" + idCN)
     idC.remove()
