@@ -4,12 +4,12 @@ const taskList = document.querySelector('[data-tasks]')
 
 const addBtn = document.querySelector('[data-add]')
 
-const containerText = document.querySelector('[data-textContainer]')
+const containerText = document.querySelector('[data-text-container]')
 var title = document.querySelector('[data-title]')
-let task = document.querySelector('[data-newTask]')
+let task = document.querySelector('[data-new-task]')
 const modal = document.querySelector('[data-modal]')
 const confirmBtn = document.querySelector('[data-confirm]')
-const confirmChangeBtn = document.querySelector('[data-confirmChange]')
+const confirmChangeBtn = document.querySelector('[data-confirm-change]')
 const cancelBtn = document.querySelector('[data-cancel]')
 
 var template = document.querySelector('[data-task]')
@@ -22,15 +22,16 @@ function showContainerModal() {
 
 function showAddTask() {
   title.innerHTML = "Adicione a tarefa"
-  document.querySelector('[data-newTask]').value = ""
+  document.querySelector('[data-new-task]').value = ""
   confirmBtn.classList.add("show")
   confirmChangeBtn.classList.remove("show")
 }
 
-function showChangeTask() {
+function showChangeTask(id) {
   title.innerHTML = "Mude a tarefa"
   confirmBtn.classList.remove("show")
   confirmChangeBtn.classList.add("show")
+  confirmChangeBtn.id = id
   let taskValue = task.value
   task.setSelectionRange(0, taskValue.length)
 }
@@ -38,79 +39,71 @@ function showChangeTask() {
 function hideContainerModal() {
   containerText.classList.remove("show")
   modal.classList.remove("show")
-  document.querySelector('[data-newTask]').value = ""
+  document.querySelector('[data-new-task]').value = ""
 }
 
 function addTask() {
-  let task = document.querySelector('[data-newTask]').value
+  let task = document.querySelector('[data-new-task]').value
   let p = template.content.querySelector("p")
   p.textContent = task
   let clone = template.content.cloneNode(true)
 
   let clones = []
   clones.push(clone)
-  
+
+  let spanElement = createTask()
+
   let listaClone = clones.map(clone => {
-    let spanEle = document.createElement('span')
-    spanEle.setAttribute("data-span", "")
-    spanEle.addEventListener('click', (e) => {
-      spanEle.classList.toggle("completed")
-      e.stopImmediatePropagation()
-    })
-    spanEle.appendChild(clone)
-    return spanEle
+    
+    spanElement.appendChild(clone)
+    return spanElement 
   })
   taskList.prepend(...listaClone)
-  
-  giveIdSpan()
-  giveIdEdit()
-  giveIdDelete()
-  giveIdP()
+
+  giveId('[data-span]', "span")
+  giveId('[data-edit]', "edit")
+  giveId('[data-delete]', "delete")
+  giveId('[data-remaining-task]', "p")
 }
 
-function giveIdSpan() {
-  let idSpanNum = 1
-  let idSpanNam = "span"
-  let spans = document.querySelectorAll('[data-span]')
-    spans.forEach((span) => {
-      let idSpan = idSpanNam + idSpanNum
-      span.id = idSpan
-      idSpanNum++
+function createTask() {
+  let spanElement = document.createElement('span')
+    spanElement.setAttribute("data-span", "")
+    spanElement.addEventListener('click', (e) => {
+      if (e.target.id.match("span")) {
+        spanElement.classList.toggle("completed")
+      }
+
+      if (e.target.id.match("delete")) {
+        e.currentTarget.remove()
+      }
+
+      if (e.target.id.match("edit")) {
+        let spanIdNum = e.currentTarget.id.replace(/\D/g, "")
+        let idPElement = document.getElementById("p" + spanIdNum)
+        let previousTask = idPElement.textContent
+        document.querySelector('[data-new-task]').value = previousTask
+        showChangeTask(spanIdNum)
+        showContainerModal()
+      }
+
+      e.stopImmediatePropagation()
     })
+
+    return spanElement
 }
 
-function giveIdEdit() {
-  let edits = document.querySelectorAll('[data-edit]')
-  let idEditNum = 0
-  let idEditNam = "edit"
-  edits.forEach((edit) => {
-    idEditNum = idEditNum + 1
-    let idEdit = idEditNam + idEditNum
-    getIndexEdit(edit, idEdit)
-  })
-}
+function giveId(dataAttribute, name) {
+  let elements = document.querySelectorAll(dataAttribute)
+  let idElementNum = 1
+  let idElementName = name
 
-function giveIdDelete() {
-  let deletes = document.querySelectorAll('[data-delete]')
-  let idDeleteNum = 0
-  let idDeleteNam = "delete"
-  deletes.forEach((deleted) => {
-    idDeleteNum = idDeleteNum + 1
-    let idDelete = idDeleteNam + idDeleteNum
-    getIndexDelete(deleted, idDelete)
+  elements.forEach((element) => {
+    let idElement = idElementName + idElementNum
+    element.id = idElement
+    idElementNum++
   })
-}
-
-function giveIdP() {
-  let pss = document.querySelectorAll('[data-remainingTask]')
-  let idPNum = 0
-  let idPNam = "p"
-  pss.forEach((ps) => {
-    idPNum = idPNum + 1
-    let idP = idPNam + idPNum
-    getIndexP(ps, idP)
-  })
-}
+} 
 
 function verifyTaskValue() {
   if (task.value == "") {
@@ -122,42 +115,12 @@ function verifyTaskValue() {
   }
 }
 
-var idP
-
-function getIndexEdit(edit, id) {
-  edit.id = id
-  edit.addEventListener('click', (e) => {
-    let idE = e.target.id
-    let idEN = idE.replace(/\D/g, "")
-    idP = document.getElementById("p" + idEN)
-    let previousTask = idP.textContent
-    document.querySelector('[data-newTask]').value = previousTask
-    showChangeTask()
-    showContainerModal()
-    e.stopImmediatePropagation()
-  })
+function changeTask(element) {
+  let taskValue = document.querySelector('[data-new-task]').value
+  element.textContent = taskValue
 }
 
-function getIndexDelete(deleted, id) {
-  deleted.id = id
-  deleted.addEventListener('click', (e) => {
-    let idD = e.target.id
-    let idDN = idD.replace(/\D/g, "")
-    let idCN = idDN
-    let idC = document.getElementById("span" + idCN)
-    idC.remove()
-    e.stopImmediatePropagation()
-  })
-}
-
-function getIndexP(p, id) {
-  p.id = id
-}
-
-function changeTask(id) {
-  let taskValue = document.querySelector('[data-newTask]').value
-  id.textContent = taskValue
-}
+// Call functions
 
 addBtn.addEventListener('click', () => {
   showContainerModal()
@@ -184,10 +147,13 @@ task.addEventListener('keypress', function (e) {
   }
 })
 
-confirmChangeBtn.addEventListener('click', () => {
-  changeTask(idP)
+confirmChangeBtn.addEventListener('click', (e) => {
+  let selectedTask = document.getElementById("p"+ e.target.id)
+  changeTask(selectedTask)
   hideContainerModal()
 })
+
+// Keyboard shortcuts
 
 var keys = {}
 

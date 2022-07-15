@@ -25,6 +25,10 @@ body div:first-child {
   overflow-y: auto;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 body > div > span {
   display: flex;
   align-items: center;
