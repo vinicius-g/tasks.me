@@ -54,9 +54,9 @@ function addTask() {
   let spanElement = createTask()
 
   let listaClone = clones.map(clone => {
-    
+
     spanElement.appendChild(clone)
-    return spanElement 
+    return spanElement
   })
   taskList.prepend(...listaClone)
 
@@ -68,29 +68,41 @@ function addTask() {
 
 function createTask() {
   let spanElement = document.createElement('span')
-    spanElement.setAttribute("data-span", "")
-    spanElement.addEventListener('click', (e) => {
-      if (e.target.id.match("span")) {
-        spanElement.classList.toggle("completed")
-      }
+  spanElement.setAttribute("data-span", "")
+  spanElement.addEventListener('click', (e) => {
+    if (e.target.id.match("span")) {
+      completeTask(spanElement)
+    }
 
-      if (e.target.id.match("delete")) {
-        e.currentTarget.remove()
-      }
+    if (e.target.id.match("delete")) {
+      deleteTask(e)
+    }
 
-      if (e.target.id.match("edit")) {
-        let spanIdNum = e.currentTarget.id.replace(/\D/g, "")
-        let idPElement = document.getElementById("p" + spanIdNum)
-        let previousTask = idPElement.textContent
-        document.querySelector('[data-new-task]').value = previousTask
-        showChangeTask(spanIdNum)
-        showContainerModal()
-      }
+    if (e.target.id.match("edit")) {
+      editTask(e)
+    }
 
-      e.stopImmediatePropagation()
-    })
+    e.stopImmediatePropagation()
+  })
 
-    return spanElement
+  return spanElement
+}
+
+function completeTask(spanElement) {
+  spanElement.classList.toggle("completed")
+}
+
+function deleteTask(e) {
+  e.currentTarget.remove()
+}
+
+function editTask(e) {
+  let spanIdNum = e.currentTarget.id.replace(/\D/g, "")
+  let idPElement = document.getElementById("p" + spanIdNum)
+  let previousTask = idPElement.textContent
+  document.querySelector('[data-new-task]').value = previousTask
+  showChangeTask(spanIdNum)
+  showContainerModal()
 }
 
 function giveId(dataAttribute, name) {
@@ -103,7 +115,7 @@ function giveId(dataAttribute, name) {
     element.id = idElement
     idElementNum++
   })
-} 
+}
 
 function verifyTaskValue() {
   if (task.value == "") {
@@ -148,7 +160,7 @@ task.addEventListener('keypress', function (e) {
 })
 
 confirmChangeBtn.addEventListener('click', (e) => {
-  let selectedTask = document.getElementById("p"+ e.target.id)
+  let selectedTask = document.getElementById("p" + e.target.id)
   changeTask(selectedTask)
   hideContainerModal()
 })
