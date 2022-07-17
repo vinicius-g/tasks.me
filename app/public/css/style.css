@@ -39,6 +39,7 @@ body > div > span {
 
 h1 {
   margin: 0;
+  font-size: clamp(1.5rem, 8vw, 2rem);
 }
 
 .adicionar {
