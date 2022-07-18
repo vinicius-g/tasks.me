@@ -81,8 +81,6 @@ function createTask() {
     if (e.target.id.match("edit")) {
       editTask(e)
     }
-
-    e.stopImmediatePropagation()
   })
 
   return spanElement
