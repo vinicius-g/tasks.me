@@ -12,6 +12,8 @@ const confirmBtn = document.querySelector('[data-confirm]')
 const confirmChangeBtn = document.querySelector('[data-confirm-change]')
 const cancelBtn = document.querySelector('[data-cancel]')
 
+var id = 1
+
 var template = document.querySelector('[data-task]')
 
 function showContainerModal() {
@@ -44,8 +46,15 @@ function hideContainerModal() {
 
 function addTask() {
   let task = document.querySelector('[data-new-task]').value
-  let p = template.content.querySelector("p")
-  p.textContent = task
+  let pElement = template.content.querySelector("p")
+  let editBtn = template.content.querySelector(".editar")
+  let deleteBtn = template.content.querySelector(".apagar")
+  pElement.textContent = task
+
+  giveId(pElement, "p")
+  giveId(editBtn, "edit")
+  giveId(deleteBtn, "delete")
+
   let clone = template.content.cloneNode(true)
 
   let clones = []
@@ -55,15 +64,13 @@ function addTask() {
 
   let listaClone = clones.map(clone => {
 
+    giveId(spanElement, "span")
+    id++
+
     spanElement.appendChild(clone)
     return spanElement
   })
   taskList.prepend(...listaClone)
-
-  giveId('[data-span]', "span")
-  giveId('[data-edit]', "edit")
-  giveId('[data-delete]', "delete")
-  giveId('[data-remaining-task]', "p")
 }
 
 function createTask() {
@@ -103,16 +110,8 @@ function editTask(e) {
   showContainerModal()
 }
 
-function giveId(dataAttribute, name) {
-  let elements = document.querySelectorAll(dataAttribute)
-  let idElementNum = 1
-  let idElementName = name
-
-  elements.forEach((element) => {
-    let idElement = idElementName + idElementNum
-    element.id = idElement
-    idElementNum++
-  })
+function giveId(element, name) {
+  element.id = name + id
 }
 
 function verifyTaskValue() {
