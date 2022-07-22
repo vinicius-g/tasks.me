@@ -6,7 +6,7 @@ const addBtn = document.querySelector('[data-add]')
 
 const containerText = document.querySelector('[data-text-container]')
 var title = document.querySelector('[data-title]')
-let task = document.querySelector('[data-new-task]')
+const task = document.querySelector('[data-new-task]')
 const modal = document.querySelector('[data-modal]')
 const confirmBtn = document.querySelector('[data-confirm]')
 const confirmChangeBtn = document.querySelector('[data-confirm-change]')
@@ -24,7 +24,7 @@ function showContainerModal() {
 
 function showAddTask() {
   title.innerHTML = "Adicione a tarefa"
-  document.querySelector('[data-new-task]').value = ""
+  task.value = ""
   confirmBtn.classList.add("show")
   confirmChangeBtn.classList.remove("show")
 }
@@ -41,15 +41,15 @@ function showChangeTask(id) {
 function hideContainerModal() {
   containerText.classList.remove("show")
   modal.classList.remove("show")
-  document.querySelector('[data-new-task]').value = ""
+  task.value = ""
 }
 
 function addTask() {
-  let task = document.querySelector('[data-new-task]').value
+  let taskValue = task.value
   let pElement = template.content.querySelector("p")
   let editBtn = template.content.querySelector(".editar")
   let deleteBtn = template.content.querySelector(".apagar")
-  pElement.textContent = task
+  pElement.textContent = taskValue
 
   giveId(pElement, "p")
   giveId(editBtn, "edit")
@@ -105,7 +105,7 @@ function editTask(e) {
   let spanIdNum = e.currentTarget.id.replace(/\D/g, "")
   let idPElement = document.getElementById("p" + spanIdNum)
   let previousTask = idPElement.textContent
-  document.querySelector('[data-new-task]').value = previousTask
+  task.value = previousTask
   showChangeTask(spanIdNum)
   showContainerModal()
 }
@@ -125,7 +125,7 @@ function verifyTaskValue() {
 }
 
 function changeTask(element) {
-  let taskValue = document.querySelector('[data-new-task]').value
+  let taskValue = task.value
   element.textContent = taskValue
 }
 
