@@ -45,9 +45,8 @@ function hideContainerModal() {
 }
 
 function addTask() {
-  let taskValue = task.value
   let elements = createElements()
-  elements.pElement.textContent = taskValue
+  createTaskText(elements.pElement)
 
   giveId(elements.pElement, "p")
   giveId(elements.editBtn, "edit")
@@ -69,6 +68,11 @@ function addTask() {
     return spanElement
   })
   taskList.prepend(...listaClone)
+}
+
+function createTaskText(pElement) {
+  let taskValue = task.value
+  pElement.textContent = taskValue
 }
 
 function createElements() {
