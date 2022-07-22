@@ -46,14 +46,12 @@ function hideContainerModal() {
 
 function addTask() {
   let taskValue = task.value
-  let pElement = template.content.querySelector("p")
-  let editBtn = template.content.querySelector(".editar")
-  let deleteBtn = template.content.querySelector(".apagar")
-  pElement.textContent = taskValue
+  let elements = createElements()
+  elements.pElement.textContent = taskValue
 
-  giveId(pElement, "p")
-  giveId(editBtn, "edit")
-  giveId(deleteBtn, "delete")
+  giveId(elements.pElement, "p")
+  giveId(elements.editBtn, "edit")
+  giveId(elements.deleteBtn, "delete")
 
   let clone = template.content.cloneNode(true)
 
@@ -71,6 +69,18 @@ function addTask() {
     return spanElement
   })
   taskList.prepend(...listaClone)
+}
+
+function createElements() {
+  let pElement = template.content.querySelector("p")
+  let editBtn = template.content.querySelector(".editar")
+  let deleteBtn = template.content.querySelector(".apagar")
+
+  return {
+    pElement,
+    editBtn,
+    deleteBtn
+  }
 }
 
 function createTask() {
