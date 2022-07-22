@@ -14,7 +14,7 @@ const cancelBtn = document.querySelector('[data-cancel]')
 
 var id = 1
 
-var template = document.querySelector('[data-task]')
+const template = document.querySelector('[data-task]')
 
 function showContainerModal() {
   containerText.classList.add("show")
