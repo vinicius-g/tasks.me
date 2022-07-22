@@ -24,7 +24,6 @@ function showContainerModal() {
 
 function showAddTask() {
   title.innerHTML = "Adicione a tarefa"
-  task.value = ""
   confirmBtn.classList.add("show")
   confirmChangeBtn.classList.remove("show")
 }
