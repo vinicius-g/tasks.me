@@ -46,7 +46,7 @@ function hideContainerModal() {
 
 function addTask() {
   let elements = createElements()
-  createTaskText(elements.pElement)
+  giveTaskText(elements.pElement)
 
   giveId(elements.pElement, "p")
   giveId(elements.editBtn, "edit")
@@ -70,9 +70,9 @@ function addTask() {
   taskList.prepend(...listaClone)
 }
 
-function createTaskText(pElement) {
+function giveTaskText(element) {
   let taskValue = task.value
-  pElement.textContent = taskValue
+  element.textContent = taskValue
 }
 
 function createElements() {
@@ -138,11 +138,6 @@ function verifyTaskValue() {
   }
 }
 
-function changeTask(element) {
-  let taskValue = task.value
-  element.textContent = taskValue
-}
-
 // Call functions
 
 addBtn.addEventListener('click', () => {
@@ -172,7 +167,7 @@ task.addEventListener('keypress', function (e) {
 
 confirmChangeBtn.addEventListener('click', (e) => {
   let selectedTask = document.getElementById("p" + e.target.id)
-  changeTask(selectedTask)
+  giveTaskText(selectedTask)
   hideContainerModal()
 })
 
