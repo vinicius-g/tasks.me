@@ -1,5 +1,3 @@
-const body = document.querySelector("body")
-
 const taskList = document.querySelector('[data-tasks]')
 
 const addBtn = document.querySelector('[data-add]')
@@ -157,7 +155,6 @@ task.addEventListener('change', function () { verifyTaskValue() })
 
 task.addEventListener('keypress', function (e) {
   if (e.key == "Enter" && title.innerHTML == "Adicione a tarefa" && task.value !== "") {
-    e.preventDefault()
     confirmBtn.click()
   } else if (e.key == "Enter" && title.innerHTML == "Mude a tarefa" & task.value !== "") {
     confirmChangeBtn.click()
@@ -174,7 +171,7 @@ confirmChangeBtn.addEventListener('click', (e) => {
 
 var keys = {}
 
-body.addEventListener('keydown', (e) => {
+window.addEventListener('keydown', (e) => {
   keys[e.key] = true
 
   if (keys['Control'] && e.key == 'a') {
@@ -183,6 +180,6 @@ body.addEventListener('keydown', (e) => {
   }
 })
 
-body.addEventListener('keyup', (e) => {
+window.addEventListener('keyup', (e) => {
   delete keys[e.key]
 })
